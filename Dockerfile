@@ -1,13 +1,15 @@
 FROM amazonlinux:latest
 
 RUN   yum -y update && \
-      yum -y install gcc gcc-c++ make  && \
       yum -y install \
-        zlib-devel \
-        bzip2-devel \
-        openssl-devel \
-        readline-devel \
-        ncurses-devel \
+        gcc             \
+        gcc-c++         \
+        make            \ 
+        zlib-devel      \
+        bzip2-devel     \
+        openssl-devel   \
+        readline-devel  \
+        ncurses-devel   \
         sqlite-devel && \
       curl --remote-name --progress https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz && \
       echo '2d0fc9f3a5940707590e07f03ecb08b9 Python-3.6.1.tgz' | md5sum -c - && \
@@ -17,4 +19,6 @@ RUN   yum -y update && \
         make && \
         make altinstall && \
       echo '/usr/local/lib' > /etc/ld.so.conf.d/local-libs.conf && \
-      ldconfig
+      ldconfig && \
+      cd .. && \
+      rm -rf Python-3.6.1.tgz Python-3.6.1 
